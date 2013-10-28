@@ -1,0 +1,8 @@
+c:\users\adtest1\documents\DotCmisNtlmSample\DotCmisNtlmSample\bin\Debug\DotCmisNtlmSample.exe
+c:\users\adtest1\documents\DotCmisNtlmSample\DotCmisNtlmSample\bin\Debug\DotCmisNtlmSample.pdb
+c:\users\adtest1\documents\DotCmisNtlmSample\DotCmisNtlmSample\bin\Debug\DotCMIS.dll
+c:\users\adtest1\documents\DotCmisNtlmSample\DotCmisNtlmSample\bin\Debug\DotCMIS.pdb
+c:\users\adtest1\documents\DotCmisNtlmSample\DotCmisNtlmSample\bin\Debug\DotCMIS.xml
+c:\users\adtest1\documents\DotCmisNtlmSample\DotCmisNtlmSample\obj\x86\Debug\DotCmisNtlmSample.csprojResolveAssemblyReference.cache
+c:\users\adtest1\documents\DotCmisNtlmSample\DotCmisNtlmSample\obj\x86\Debug\DotCmisNtlmSample.exe
+c:\users\adtest1\documents\DotCmisNtlmSample\DotCmisNtlmSample\obj\x86\Debug\DotCmisNtlmSample.pdb

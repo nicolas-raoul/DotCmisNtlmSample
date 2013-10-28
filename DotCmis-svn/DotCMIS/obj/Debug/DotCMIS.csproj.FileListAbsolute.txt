@@ -1,0 +1,5 @@
+C:\Users\adtest1\Documents\DotCmisNtlmSample\DotCmis-svn\DotCMIS\bin\Debug\DotCMIS.dll.config
+C:\Users\adtest1\Documents\DotCmisNtlmSample\DotCmis-svn\DotCMIS\bin\Debug\DotCMIS.dll
+C:\Users\adtest1\Documents\DotCmisNtlmSample\DotCmis-svn\DotCMIS\bin\Debug\DotCMIS.pdb
+C:\Users\adtest1\Documents\DotCmisNtlmSample\DotCmis-svn\DotCMIS\obj\Debug\DotCMIS.dll
+C:\Users\adtest1\Documents\DotCmisNtlmSample\DotCmis-svn\DotCMIS\obj\Debug\DotCMIS.pdb

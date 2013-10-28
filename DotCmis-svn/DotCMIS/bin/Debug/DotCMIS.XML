@@ -1,0 +1,2739 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>DotCMIS</name>
+    </assembly>
+    <members>
+        <member name="T:DotCMIS.Client.Impl.AbstractCmisObject">
+            <summary>
+            CMIS object base class.
+            </summary>
+        </member>
+        <member name="T:DotCMIS.Client.ICmisObject">
+            <summary>
+            Base interface for all CMIS objects.
+            </summary>
+        </member>
+        <member name="P:DotCMIS.Client.IObjectId.Id">
+            <summary>
+            Gets the object id.
+            </summary>
+        </member>
+        <member name="T:DotCMIS.Client.ICmisObjectProperties">
+            <summary>
+            Collection of common CMIS properties.
+            </summary>
+        </member>
+        <member name="M:DotCMIS.Client.ICmisObjectProperties.GetPropertyValue(System.String)">
+            <summary>
+            Gets the value of the requested property.
+            </summary>
+            <param name="propertyId">the property id</param>
+            <returns>the property value or <c>null</c> if the property is not available or not set</returns>
+        </member>
+        <member name="P:DotCMIS.Client.ICmisObjectProperties.Properties">
+            <summary>
+            Gets a list of all available CMIS properties.
+            </summary>
+        </member>
+        <member name="P:DotCMIS.Client.ICmisObjectProperties.Item(System.String)">
+            <summary>
+            available
+            </summary>
+            <param name="propertyId">the property id</param>
+            <returns>the property or <c>null</c> if the property is not available</returns>
+        </member>
+        <member name="P:DotCMIS.Client.ICmisObjectProperties.Name">
+            <summary>
+            Gets the name of this CMIS object (CMIS property <c>cmis:name</c>).
+            </summary>
+        </member>
+        <member name="P:DotCMIS.Client.ICmisObjectProperties.CreatedBy">
+            <summary>
+            Gets the user who created this CMIS object (CMIS property <c>cmis:createdBy</c>).
+            </summary>
+        </member>
+        <member name="P:DotCMIS.Client.ICmisObjectProperties.CreationDate">
+            <summary>
+            Gets the timestamp when this CMIS object has been created (CMIS property <c>cmis:creationDate</c>).
+            </summary>
+        </member>
+        <member name="P:DotCMIS.Client.ICmisObjectProperties.LastModifiedBy">
+            <summary>
+            Gets the user who modified this CMIS object (CMIS property <c>cmis:lastModifiedBy</c>).
+            </summary>
+        </member>
+        <member name="P:DotCMIS.Client.ICmisObjectProperties.LastModificationDate">
+            <summary>
+            Gets the timestamp when this CMIS object has been modified (CMIS property <c>cmis:lastModificationDate</c>).
+            </summary>
+        </member>
+        <member name="P:DotCMIS.Client.ICmisObjectProperties.BaseTypeId">
+            <summary>
+            Gets the id of the base type of this CMIS object (CMIS property <c>cmis:baseTypeId</c>).
+            </summary>
+        </member>
+        <member name="P:DotCMIS.Client.ICmisObjectProperties.BaseType">
+            <summary>
+            Gets the base type of this CMIS object (object type identified by <c>cmis:baseTypeId</c>).
+            </summary>
+        </member>
+        <member name="P:DotCMIS.Client.ICmisObjectProperties.ObjectType">
+            <summary>
+            Gets the type of this CMIS object (object type identified by <c>cmis:objectTypeId</c>).
+            </summary>
+        </member>
+        <member name="P:DotCMIS.Client.ICmisObjectProperties.ChangeToken">
+            <summary>
+            Gets the change token (CMIS property <c>cmis:changeToken</c>).
+            </summary>
+        </member>
+        <member name="M:DotCMIS.Client.ICmisObject.Delete(System.Boolean)">
+            <summary>
+            Deletes this object.
+            </summary>
+            <param name="allVersions">if this object is a document this parameter defines if just this version or all versions should be deleted</param>
+        </member>
+        <member name="M:DotCMIS.Client.ICmisObject.UpdateProperties(System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary>
+            Updates the properties that are provided.
+            </summary>
+            <param name="properties">the properties to update</param>
+            <returns>the updated object (a repository might have created a new object)</returns>
+        </member>
+        <member name="M:DotCMIS.Client.ICmisObject.UpdateProperties(System.Collections.Generic.IDictionary{System.String,System.Object},System.Boolean)">
+            <summary>
+            Updates the properties that are provided.
+            </summary>
+            <param name="properties">the properties to update</param>
+            <param name="refresh">indicates if the object should be refresh after the update</param>
+            <returns>the object id of the updated object (a repository might have created a new object)</returns>
+        </member>
+        <member name="M:DotCMIS.Client.ICmisObject.ApplyPolicy(DotCMIS.Client.IObjectId[])">
+            <summary>
+            Applies the given policies to the object.
+            </summary>
+        </member>
+        <member name="M:DotCMIS.Client.ICmisObject.RemovePolicy(DotCMIS.Client.IObjectId[])">
+            <summary>
+            Removes the given policies from the object.
+            </summary>
+        </member>
+        <member name="M:DotCMIS.Client.ICmisObject.ApplyAcl(System.Collections.Generic.IList{DotCMIS.Data.IAce},System.Collections.Generic.IList{DotCMIS.Data.IAce},System.Nullable{DotCMIS.Enums.AclPropagation})">
+            <summary>
+            Adds and removes ACEs to this object.
+            </summary>
+            <returns>the new ACL of this object</returns>
+        </member>
+        <member name="M:DotCMIS.Client.ICmisObject.AddAcl(System.Collections.Generic.IList{DotCMIS.Data.IAce},System.Nullable{DotCMIS.Enums.AclPropagation})">
+            <summary>
+            Adds ACEs to this object.
+            </summary>
+            <returns>the new ACL of this object</returns>
+        </member>
+        <member name="M:DotCMIS.Client.ICmisObject.RemoveAcl(System.Collections.Generic.IList{DotCMIS.Data.IAce},System.Nullable{DotCMIS.Enums.AclPropagation})">
+            <summary>
+            Removes ACEs from this object.
+            </summary>
+            <returns>the new ACL of this object</returns>
+        </member>
+        <member name="M:DotCMIS.Client.ICmisObject.GetExtensions(DotCMIS.Client.ExtensionLevel)">
+            <summary>
+            Gets the extensions of the given level.
+            </summary>
+        </member>
+        <member name="M:DotCMIS.Client.ICmisObject.Refresh">
+            <summary>
+            Reloads the data from the repository.
+            </summary>
+        </member>
+        <member name="M:DotCMIS.Client.ICmisObject.RefreshIfOld(System.Int64)">
+            <summary>
+            Reloads the data from the repository if the last refresh did not occur within <c>durationInMillis</c>.
+            </summary>
+        </member>
+        <member name="P:DotCMIS.Client.ICmisObject.AllowableActions">
+            <summary>
+            Gets the allowable actions if they have been fetched for this object.
+            </summary>
+        </member>
+        <member name="P:DotCMIS.Client.ICmisObject.Relationships">
+            <summary>
+            Gets the relationships if they have been fetched for this object.
+            </summary>
+        </member>
+        <member name="P:DotCMIS.Client.ICmisObject.Acl">
+            <summary>
+            Gets the ACL if it has been fetched for this object.
+            </summary>
+        </member>
+        <member name="P:DotCMIS.Client.ICmisObject.Renditions">
+            <summary>
+            Gets the renditions if they have been fetched for this object.
+            </summary>
+        </member>
+        <member name="P:DotCMIS.Client.ICmisObject.Policies">
+            <summary>
+            Gets a list of policies applied to this object.
+            </summary>
+        </member>
+        <member name="P:DotCMIS.Client.ICmisObject.RefreshTimestamp">
+            <summary>
+            Gets the timestamp of the last refresh.
+            </summary>
+        </member>
+        <member name="T:DotCMIS.Client.Impl.AbstractFileableCmisObject">
+            <summary>
+            Fileable object base class.
+            </summary>
+        </member>
+        <member name="T:DotCMIS.Client.IFileableCmisObject">
+            <summary>
+            Base interface for all fileable CMIS objects.
+            </summary>
+        </member>
+        <member name="M:DotCMIS.Client.IFileableCmisObject.Move(DotCMIS.Client.IObjectId,DotCMIS.Client.IObjectId)">
+            <summary>
+            Moves this object from a source folder to a target folder.
+            </summary>
+            <param name="sourceFolderId">the source folder id</param>
+            <param name="targetFolderId">the target folder id</param>
+            <returns>the object in the new location</returns>
+        </member>
+        <member name="M:DotCMIS.Client.IFileableCmisObject.AddToFolder(DotCMIS.Client.IObjectId,System.Boolean)">
+            <summary>
+            Adds this object to the given folder.
+            </summary>
+            <param name="folderId">the id of the target folder</param>
+            <param name="allVersions">indicates if only this object or all versions of the object should be added</param>
+        </member>
+        <member name="M:DotCMIS.Client.IFileableCmisObject.RemoveFromFolder(DotCMIS.Client.IObjectId)">
+            <summary>
+            Removes this object from the given folder.
+            </summary>
+            <param name="folderId">the id of the folder</param>
+        </member>
+        <member name="P:DotCMIS.Client.IFileableCmisObject.Parents">
+            <summary>
+            Gets a list of all parent folders. 
+            </summary>
+            <remarks>
+            Returns an empty list if it is an unfiled object or the root folder.
+            </remarks>
+        </member>
+        <member name="P:DotCMIS.Client.IFileableCmisObject.Paths">
+            <summary>
+            Gets all paths for this object
+            </summary>
+            <remarks>
+            Returns an empty list for unfiled objects.
+            </remarks>
+        </member>
+        <member name="T:DotCMIS.Client.Impl.Document">
+            <summary>
+            Document implemetation.
+            </summary>
+        </member>
+        <member name="T:DotCMIS.Client.IDocument">
+            <summary>
+            Document interface.
+            </summary>
+        </member>
+        <member name="T:DotCMIS.Client.IDocumentProperties">
+            <summary>
+            Document properties.
+            </summary>
+        </member>
+        <member name="P:DotCMIS.Client.IDocumentProperties.IsImmutable">
+            <summary>
+            Gets if this CMIS object is immutable (CMIS property <c>cmis:isImmutable</c>).
+            </summary>
+        </member>
+        <member name="P:DotCMIS.Client.IDocumentProperties.IsLatestVersion">
+            <summary>
+            Gets if this CMIS object is the latest version (CMIS property <c>cmis:isLatestVersion</c>)
+            </summary>
+        </member>
+        <member name="P:DotCMIS.Client.IDocumentProperties.IsMajorVersion">
+            <summary>
+            Gets if this CMIS object is the latest version (CMIS property <c>cmis:isMajorVersion</c>).
+            </summary>
+        </member>
+        <member name="P:DotCMIS.Client.IDocumentProperties.IsLatestMajorVersion">
+            <summary>
+            Gets if this CMIS object is the latest major version (CMIS property <c>cmis:isLatestMajorVersion</c>).
+            </summary>
+        </member>
+        <member name="P:DotCMIS.Client.IDocumentProperties.VersionLabel">
+            <summary>
+            Gets the version label (CMIS property <c>cmis:versionLabel</c>).
+            </summary>
+        </member>
+        <member name="P:DotCMIS.Client.IDocumentProperties.VersionSeriesId">
+            <summary>
+            Gets the version series id (CMIS property <c>cmis:versionSeriesId</c>).
+            </summary>
+        </member>
+        <member name="P:DotCMIS.Client.IDocumentProperties.IsVersionSeriesCheckedOut">
+            <summary>
+            Gets if this version series is checked out (CMIS property <c>cmis:isVersionSeriesCheckedOut</c>).
+            </summary>
+        </member>
+        <member name="P:DotCMIS.Client.IDocumentProperties.VersionSeriesCheckedOutBy">
+            <summary>
+            Gets the user who checked out this version series (CMIS property <c>cmis:versionSeriesCheckedOutBy</c>).
+            </summary>
+        </member>
+        <member name="P:DotCMIS.Client.IDocumentProperties.VersionSeriesCheckedOutId">
+            <summary>
+            Gets the PWC id of this version series (CMIS property <c>cmis:versionSeriesCheckedOutId</c>).
+            </summary>
+        </member>
+        <member name="P:DotCMIS.Client.IDocumentProperties.CheckinComment">
+            <summary>
+            Gets the checkin comment (CMIS property <c>cmis:checkinComment</c>).
+            </summary>
+        </member>
+        <member name="P:DotCMIS.Client.IDocumentProperties.ContentStreamLength">
+            <summary>
+            Gets the content stream length or <c>null</c> if the document has no content (CMIS property <c>cmis:contentStreamLength</c>).
+            </summary>
+        </member>
+        <member name="P:DotCMIS.Client.IDocumentProperties.ContentStreamMimeType">
+            <summary>
+            Gets the content stream MIME type or <c>null</c> if the document has no content (CMIS property <c>cmis:contentStreamMimeType</c>).
+            </summary>
+        </member>
+        <member name="P:DotCMIS.Client.IDocumentProperties.ContentStreamFileName">
+            <summary>
+            Gets the content stream filename or <c>null</c> if the document has no content (CMIS property <c>cmis:contentStreamFileName</c>).
+            </summary>
+        </member>
+        <member name="P:DotCMIS.Client.IDocumentProperties.ContentStreamId">
+            <summary>
+            Gets the content stream id or <c>null</c> if the document has no content (CMIS property <c>cmis:contentStreamId</c>).
+            </summary>
+        </member>
+        <member name="M:DotCMIS.Client.IDocument.DeleteAllVersions">
+            <summary>
+            Deletes all versions of this document.
+            </summary>
+        </member>
+        <member name="M:DotCMIS.Client.IDocument.GetContentStream">
+            <summary>
+            Gets the content stream of this document.
+            </summary>
+            <returns>the content stream or <c>null</c> if the document has no content</returns>
+        </member>
+        <member name="M:DotCMIS.Client.IDocument.GetContentStream(System.String)">
+            <summary>
+            Gets the content stream identified by the given stream id.
+            </summary>
+            <returns>the content stream or <c>null</c> if the stream id is not associated with content</returns>
+        </member>
+        <member name="M:DotCMIS.Client.IDocument.GetContentStream(System.String,System.Nullable{System.Int64},System.Nullable{System.Int64})">
+            <summary>
+            Gets the content stream identified by the given stream id with the given offset and length.
+            </summary>
+            <returns>the content stream or <c>null</c> if the stream id is not associated with content</returns>
+        </member>
+        <member name="M:DotCMIS.Client.IDocument.SetContentStream(DotCMIS.Data.IContentStream,System.Boolean)">
+            <summary>
+            Sets a new content stream for this document.
+            </summary>
+            <param name="contentStream">the content stream</param>
+            <param name="overwrite">indicates if the current stream should be overwritten</param>
+            <returns>the new document object</returns>
+            <remarks>
+            Repositories might create a new version if the content is updated.
+            </remarks>
+        </member>
+        <member name="M:DotCMIS.Client.IDocument.SetContentStream(DotCMIS.Data.IContentStream,System.Boolean,System.Boolean)">
+            <summary>
+            Sets a new content stream for this document.
+            </summary>
+            <param name="contentStream">the content stream</param>
+            <param name="overwrite">indicates if the current stream should be overwritten</param>
+            <param name="refresh">indicates if this object should be refreshed after the new content is set</param>
+            <returns>the new document object id</returns>
+            <remarks>
+            Repositories might create a new version if the content is updated.
+            </remarks>
+        </member>
+        <member name="M:DotCMIS.Client.IDocument.DeleteContentStream">
+            <summary>
+            Deletes the current content stream for this document.
+            </summary>
+            <returns>the new document object</returns>
+            <remarks>
+            Repositories might create a new version if the content is deleted.
+            </remarks>
+        </member>
+        <member name="M:DotCMIS.Client.IDocument.DeleteContentStream(System.Boolean)">
+            <summary>
+            Deletes the current content stream for this document.
+            </summary>
+            <param name="refresh">indicates if this object should be refreshed after the content is deleted</param>
+            <returns>the new document object id</returns>
+            <remarks>
+            Repositories might create a new version if the content is deleted.
+            </remarks>
+        </member>
+        <member name="M:DotCMIS.Client.IDocument.CheckOut">
+            <summary>
+            Checks out this document.
+            </summary>
+            <returns>the object id of the newly created private working copy (PWC).</returns>
+        </member>
+        <member name="M:DotCMIS.Client.IDocument.CancelCheckOut">
+            <summary>
+            Cancels the check out.
+            </summary>
+        </member>
+        <member name="M:DotCMIS.Client.IDocument.CheckIn(System.Boolean,System.Collections.Generic.IDictionary{System.String,System.Object},DotCMIS.Data.IContentStream,System.String,System.Collections.Generic.IList{DotCMIS.Client.IPolicy},System.Collections.Generic.IList{DotCMIS.Data.IAce},System.Collections.Generic.IList{DotCMIS.Data.IAce})">
+            <summary>
+            Checks in this private working copy (PWC).
+            </summary>
+            <returns>the object id of the new created document</returns>
+        </member>
+        <member name="M:DotCMIS.Client.IDocument.CheckIn(System.Boolean,System.Collections.Generic.IDictionary{System.String,System.Object},DotCMIS.Data.IContentStream,System.String)">
+            <summary>
+            Checks in this private working copy (PWC).
+            </summary>
+            <returns>the object id of the new created document</returns>
+        </member>
+        <member name="M:DotCMIS.Client.IDocument.GetAllVersions">
+            <summary>
+            Gets a list of all versions in this version series.
+            </summary>
+        </member>
+        <member name="M:DotCMIS.Client.IDocument.GetAllVersions(DotCMIS.Client.IOperationContext)">
+            <summary>
+            Gets a list of all versions in this version series using the given <see cref="T:DotCMIS.Client.IOperationContext"/>.
+            </summary>
+        </member>
+        <member name="T:DotCMIS.Client.Impl.Folder">
+            <summary>
+            Folder implemetation.
+            </summary>
+        </member>
+        <member name="T:DotCMIS.Client.IFolder">
+            <summary>
+            Folder interface.
+            </summary>
+        </member>
+        <member name="T:DotCMIS.Client.IFolderProperties">
+            <summary>
+            Folder properties.
+            </summary>
+        </member>
+        <member name="M:DotCMIS.Client.IFolder.GetFolderTree(System.Int32)">
+            <summary>
+            Gets the folder tress of this folder (only folder).
+            </summary>
+            <param name="depth">the depth</param>
+            <returns>a list of folder trees</returns>
+            <remarks>
+            If depth == 1 only objects that are children of this folder are returned.
+            If depth &gt; 1 only objects that are children of this folder and descendants up to "depth" levels deep are returned.
+            If depth == -1 all descendant objects at all depth levels in the CMIS hierarchy are returned.
+            </remarks>
+        </member>
+        <member name="M:DotCMIS.Client.IFolder.GetFolderTree(System.Int32,DotCMIS.Client.IOperationContext)">
+            <summary>
+            Gets the folder tress of this folder (only folder) using the given <see cref="T:DotCMIS.Client.IOperationContext"/>.
+            </summary>
+            <param name="depth">the depth</param>
+            <param name="context">the <see cref="T:DotCMIS.Client.IOperationContext"/></param>
+            <returns>a list of folder trees</returns>
+            <remarks>
+            If depth == 1 only objects that are children of this folder are returned.
+            If depth &gt; 1 only objects that are children of this folder and descendants up to "depth" levels deep are returned.
+            If depth == -1 all descendant objects at all depth levels in the CMIS hierarchy are returned.
+            </remarks>
+        </member>
+        <member name="M:DotCMIS.Client.IFolder.GetDescendants(System.Int32)">
+            <summary>
+            Gets the descendants of this folder (all filable objects).
+            </summary>
+            <param name="depth">the depth</param>
+            <returns>a list of descendant trees</returns>
+            <remarks>
+            If depth == 1 only objects that are children of this folder are returned.
+            If depth &gt; 1 only objects that are children of this folder and descendants up to "depth" levels deep are returned.
+            If depth == -1 all descendant objects at all depth levels in the CMIS hierarchy are returned.
+            </remarks>
+        </member>
+        <member name="M:DotCMIS.Client.IFolder.GetDescendants(System.Int32,DotCMIS.Client.IOperationContext)">
+            <summary>
+            Gets the descendants of this folder (all filable objects) using the given <see cref="T:DotCMIS.Client.IOperationContext"/>.
+            </summary>
+            <param name="depth">the depth</param>
+            <param name="context">the <see cref="T:DotCMIS.Client.IOperationContext"/></param>
+            <returns>a list of descendant trees</returns>
+            <remarks>
+            If depth == 1 only objects that are children of this folder are returned.
+            If depth &gt; 1 only objects that are children of this folder and descendants up to "depth" levels deep are returned.
+            If depth == -1 all descendant objects at all depth levels in the CMIS hierarchy are returned.
+            </remarks>
+        </member>
+        <member name="M:DotCMIS.Client.IFolder.GetChildren">
+            <summary>
+            Gets the children of this folder.
+            </summary>
+        </member>
+        <member name="M:DotCMIS.Client.IFolder.GetChildren(DotCMIS.Client.IOperationContext)">
+            <summary>
+            Gets the children of this folder ussing the given <see cref="T:DotCMIS.Client.IOperationContext"/>.
+            </summary>
+        </member>
+        <member name="P:DotCMIS.Client.IFolder.IsRootFolder">
+            <summary>
+            Gets if this folder is the root folder.
+            </summary>
+        </member>
+        <member name="P:DotCMIS.Client.IFolder.FolderParent">
+            <summary>
+            Gets the parent of this folder or <c>null</c> if this folder is the root folder.
+            </summary>
+        </member>
+        <member name="P:DotCMIS.Client.IFolder.Path">
+            <summary>
+            Gets the path of this folder.
+            </summary>
+        </member>
+        <member name="T:DotCMIS.Client.Impl.Policy">
+            <summary>
+            Policy implemetation.
+            </summary>
+        </member>
+        <member name="T:DotCMIS.Client.IPolicy">
+            <summary>
+            Policy interface.
+            </summary>
+        </member>
+        <member name="T:DotCMIS.Client.IPolicyProperties">
+            <summary>
+            Policy properties.
+            </summary>
+        </member>
+        <member name="P:DotCMIS.Client.IPolicyProperties.PolicyText">
+            <summary>
+            Gets the policy text of this CMIS policy (CMIS property <c>cmis:policyText</c>).
+            </summary>
+        </member>
+        <member name="T:DotCMIS.Client.Impl.Relationship">
+            <summary>
+            Relationship implemetation.
+            </summary>
+        </member>
+        <member name="T:DotCMIS.Client.IRelationship">
+            <summary>
+            Relationship interface.
+            </summary>
+        </member>
+        <member name="T:DotCMIS.Client.IRelationshipProperties">
+            <summary>
+            Relationship properties.
+            </summary>
+        </member>
+        <member name="P:DotCMIS.Client.IRelationshipProperties.SourceId">
+            <summary>
+            Gets the id of the relationship source object.
+            </summary>
+        </member>
+        <member name="P:DotCMIS.Client.IRelationshipProperties.TargetId">
+            <summary>
+            Gets the id of the relationships target object.
+            </summary>
+        </member>
+        <member name="M:DotCMIS.Client.IRelationship.GetSource">
+            <summary>
+            Gets the relationship source object.
+            </summary>
+            <remarks>
+            If the source object id is invalid, <c>null</c> will be returned.
+            </remarks>
+        </member>
+        <member name="M:DotCMIS.Client.IRelationship.GetSource(DotCMIS.Client.IOperationContext)">
+            <summary>
+            Gets the relationship source object using the given <see cref="T:DotCMIS.Client.IOperationContext"/>.
+            </summary>
+            <remarks>
+            If the source object id is invalid, <c>null</c> will be returned.
+            </remarks>
+        </member>
+        <member name="M:DotCMIS.Client.IRelationship.GetTarget">
+            <summary>
+            Gets the relationship target object.
+            </summary>
+            <remarks>
+            If the target object id is invalid, <c>null</c> will be returned.
+            </remarks>
+        </member>
+        <member name="M:DotCMIS.Client.IRelationship.GetTarget(DotCMIS.Client.IOperationContext)">
+            <summary>
+            Gets the relationship target object using the given <see cref="T:DotCMIS.Client.IOperationContext"/>.
+            </summary>
+            <remarks>
+            If the target object id is invalid, <c>null</c> will be returned.
+            </remarks>
+        </member>
+        <member name="T:DotCMIS.Client.IProperty">
+            <summary>
+            Property interface.
+            </summary>
+        </member>
+        <member name="P:DotCMIS.Client.IProperty.Id">
+            <summary>
+            Gets the property id.
+            </summary>
+        </member>
+        <member name="P:DotCMIS.Client.IProperty.LocalName">
+            <summary>
+            Gets the property local name.
+            </summary>
+        </member>
+        <member name="P:DotCMIS.Client.IProperty.DisplayName">
+            <summary>
+            Gets the property display name.
+            </summary>
+        </member>
+        <member name="P:DotCMIS.Client.IProperty.QueryName">
+            <summary>
+            Gets the property query name.
+            </summary>
+        </member>
+        <member name="P:DotCMIS.Client.IProperty.IsMultiValued">
+            <summary>
+            Gets if the property is a multi-value proprty.
+            </summary>
+        </member>
+        <member name="P:DotCMIS.Client.IProperty.PropertyType">
+            <summary>
+            Gets the proprty type.
+            </summary>
+        </member>
+        <member name="P:DotCMIS.Client.IProperty.PropertyDefinition">
+            <summary>
+            Gets the property defintion.
+            </summary>
+        </member>
+        <member name="P:DotCMIS.Client.IProperty.Value">
+            <summary>
+            Gets the value of the property.
+            </summary>
+            <remarks>
+            If the property is a single-value property the single value is returned.
+            If the property is a multi-value property a IList&lt;object&gt; is returned.
+            </remarks>
+        </member>
+        <member name="P:DotCMIS.Client.IProperty.Values">
+            <summary>
+            Gets the value list of the property.
+            </summary>
+            <remarks>
+            If the property is a single-value property a list with one or no items is returend.
+            </remarks>
+        </member>
+        <member name="P:DotCMIS.Client.IProperty.FirstValue">
+            <summary>
+            Gets the first value of the value list or <c>null</c> if the list has no values.
+            </summary>
+        </member>
+        <member name="P:DotCMIS.Client.IProperty.ValueAsString">
+            <summary>
+            Gets a string representation of the first value of the value list.
+            </summary>
+        </member>
+        <member name="P:DotCMIS.Client.IProperty.ValuesAsString">
+            <summary>
+            Gets a string representation of the value list.
+            </summary>
+        </member>
+        <member name="T:DotCMIS.Client.IQueryResult">
+            <summary>
+            Query result.
+            </summary>
+        </member>
+        <member name="M:DotCMIS.Client.IQueryResult.GetPropertyById(System.String)">
+            <summary>
+            Returns a property by id.
+            </summary>
+            <param name="propertyId">the property id</param>
+            <remarks>
+            Since repositories are not obligated to add property ids to their
+            query result properties, this method might not always work as expected with
+            some repositories. Use <see cref="P:this[string]"/> instead.
+            </remarks>
+        </member>
+        <member name="M:DotCMIS.Client.IQueryResult.GetPropertyValueByQueryName(System.String)">
+            <summary>
+            Gets the property (single) value by query name or alias.
+            </summary>
+        </member>
+        <member name="M:DotCMIS.Client.IQueryResult.GetPropertyValueById(System.String)">
+            <summary>
+            Gets the property (single) value by property id.
+            </summary>
+        </member>
+        <member name="M:DotCMIS.Client.IQueryResult.GetPropertyMultivalueByQueryName(System.String)">
+            <summary>
+            Gets the property value by query name or alias.
+            </summary>
+        </member>
+        <member name="M:DotCMIS.Client.IQueryResult.GetPropertyMultivalueById(System.String)">
+            <summary>
+            Gets the property value by property id.
+            </summary>
+        </member>
+        <member name="P:DotCMIS.Client.IQueryResult.Item(System.String)">
+            <summary>
+            Gets the property.
+            </summary>
+            <param name="queryName">the propertys query name or alias</param>
+        </member>
+        <member name="P:DotCMIS.Client.IQueryResult.Properties">
+            <summary>
+            Gets a list of all properties in this query result.
+            </summary>
+        </member>
+        <member name="P:DotCMIS.Client.IQueryResult.AllowableActions">
+            <summary>
+            Gets the allowable actions if they were requested.
+            </summary>
+        </member>
+        <member name="P:DotCMIS.Client.IQueryResult.Relationships">
+            <summary>
+            Gets the relationships if they were requested.
+            </summary>
+        </member>
+        <member name="P:DotCMIS.Client.IQueryResult.Renditions">
+            <summary>
+            Gets the renditions if they were requested.
+            </summary>
+        </member>
+        <member name="T:DotCMIS.Client.ISessionFactory">
+            <summary>
+            Session factory interface.
+            </summary>
+        </member>
+        <member name="M:DotCMIS.Client.ISessionFactory.CreateSession(System.Collections.Generic.IDictionary{System.String,System.String})">
+             <summary>
+             Creates a new session with the given parameters and connects to the repository.
+             </summary>
+             <param name="parameters">the session parameters</param>
+             <returns>the newly created session</returns>
+             <example>
+             Connect to an AtomPub CMIS endpoint:
+             <code>
+             Dictionary&lt;string, string&gt; parameters = new Dictionary&lt;string, string&gt;();
+             
+             parameters[SessionParameter.BindingType] = BindingType.AtomPub;
+             parameters[SessionParameter.AtomPubUrl] = "http://localhost/cmis/atom";
+             parameters[SessionParameter.Password] = "admin";
+             parameters[SessionParameter.User] = "admin";
+             parameters[SessionParameter.RepositoryId] = "1234-abcd-5678";
+            
+             SessionFactory factory = SessionFactory.NewInstance();
+             ISession session = factory.CreateSession(parameters);
+             </code>
+             
+             Connect to a Web Services CMIS endpoint:
+             <code>
+             Dictionary&lt;string, string&gt; parameters = new Dictionary&lt;string, string&gt;();
+             
+             string baseUrlWS = "https://localhost:443/cmis/ws";
+            
+             parameters[SessionParameter.BindingType] = BindingType.WebServices;
+             parameters[SessionParameter.WebServicesRepositoryService] = baseUrlWS + "/RepositoryService?wsdl";
+             parameters[SessionParameter.WebServicesAclService] = baseUrlWS + "/AclService?wsdl";
+             parameters[SessionParameter.WebServicesDiscoveryService] = baseUrlWS + "/DiscoveryService?wsdl";
+             parameters[SessionParameter.WebServicesMultifilingService] = baseUrlWS + "/MultifilingService?wsdl";
+             parameters[SessionParameter.WebServicesNavigationService] = baseUrlWS + "/NavigationService?wsdl";
+             parameters[SessionParameter.WebServicesObjectService] = baseUrlWS + "/ObjectService?wsdl";
+             parameters[SessionParameter.WebServicesPolicyService] = baseUrlWS + "/PolicyService?wsdl";
+             parameters[SessionParameter.WebServicesRelationshipService] = baseUrlWS + "/RelationshipService?wsdl";
+             parameters[SessionParameter.WebServicesVersioningService] = baseUrlWS + "/VersioningService?wsdl";
+             parameters[SessionParameter.RepositoryId] = "1234-abcd-5678"
+             parameters[SessionParameter.User] = "admin";
+             parameters[SessionParameter.Password] = "admin";
+            
+             SessionFactory factory = SessionFactory.NewInstance();
+             ISession session = factory.CreateSession(parameters);
+             </code>
+             </example>
+             <seealso cref="T:DotCMIS.SessionParameter"/>
+        </member>
+        <member name="M:DotCMIS.Client.ISessionFactory.GetRepositories(System.Collections.Generic.IDictionary{System.String,System.String})">
+            <summary>
+            Gets all repository available at the specified endpoint.
+            </summary>
+            <param name="parameters">the session parameters</param>
+            <returns>a list of all available repositories</returns>
+            <seealso cref="T:DotCMIS.SessionParameter"/>
+        </member>
+        <member name="T:DotCMIS.Client.IRepository">
+            <summary>
+            Repository interface.
+            </summary>
+        </member>
+        <member name="M:DotCMIS.Client.IRepository.CreateSession">
+            <summary>
+            Creates a session for this repository.
+            </summary>
+        </member>
+        <member name="T:DotCMIS.Client.ISession">
+            <summary>
+            A session is a connection to a CMIS repository with a specific user.
+            </summary>
+            <remarks>
+            <para>
+            Not all operations might be supported by the connected repository. Either DotCMIS or the repository will 
+            throw an exception if an unsupported operation is called. 
+            The capabilities of the repository can be discovered by evaluating the repository info 
+            (see <see cref="P:DotCMIS.Client.ISession.RepositoryInfo"/>).
+            </para>
+            <para>
+            Almost all methods might throw exceptions derived from <see cref="T:DotCMIS.Exceptions.CmisBaseException"/>!
+            </para>
+            <para>
+            (Please refer to the <a href="http://docs.oasis-open.org/cmis/CMIS/v1.0/os/">CMIS specification</a>
+            for details about the domain model, terms, concepts, base types, properties, ids and query names, 
+            query language, etc.)
+            </para>
+            </remarks>
+        </member>
+        <member name="M:DotCMIS.Client.ISession.Clear">
+            <summary>
+            Clears all caches.
+            </summary>
+        </member>
+        <member name="M:DotCMIS.Client.ISession.CreateOperationContext">
+            <summary>
+            Creates a new operation context object.
+            </summary>
+        </member>
+        <member name="M:DotCMIS.Client.ISession.CreateOperationContext(System.Collections.Generic.HashSet{System.String},System.Boolean,System.Boolean,System.Boolean,DotCMIS.Enums.IncludeRelationshipsFlag,System.Collections.Generic.HashSet{System.String},System.Boolean,System.String,System.Boolean,System.Int32)">
+            <summary>
+            Creates a new operation context object with the given parameters.
+            </summary>
+        </member>
+        <member name="M:DotCMIS.Client.ISession.CreateObjectId(System.String)">
+            <summary>
+            Creates a new <see cref="T:DotCMIS.Client.IObjectId"/> with the giveb id.
+            </summary>
+        </member>
+        <member name="M:DotCMIS.Client.ISession.GetObject(DotCMIS.Client.IObjectId)">
+            <summary>
+            Gets a CMIS object from the session cache. If the object is not in the cache or the cache is 
+            turned off per default <see cref="T:DotCMIS.Client.IOperationContext"/>, it will load the object 
+            from the repository and puts it into the cache.
+            </summary>
+            <param name="objectId">the object id</param>
+        </member>
+        <member name="M:DotCMIS.Client.ISession.GetObject(System.String)">
+            <summary>
+            Gets a CMIS object from the session cache. If the object is not in the cache or the cache is 
+            turned off per default <see cref="T:DotCMIS.Client.IOperationContext"/>, it will load the object 
+            from the repository and puts it into the cache.
+            </summary>
+            <param name="objectId">the object id</param>
+        </member>
+        <member name="M:DotCMIS.Client.ISession.GetObjectByPath(System.String)">
+            <summary>
+            Gets a CMIS object from the session cache. If the object is not in the cache or the cache is 
+            turned off per default <see cref="T:DotCMIS.Client.IOperationContext"/>, it will load the object
+            from the repository and puts it into the cache.
+            </summary>
+            <param name="path">the path to the object</param>
+        </member>
+        <member name="M:DotCMIS.Client.ISession.RemoveObjectFromCache(DotCMIS.Client.IObjectId)">
+            <summary>
+             Removes the given object from the cache.
+            </summary>
+            <param name="objectId">the object id</param>
+        </member>
+        <member name="M:DotCMIS.Client.ISession.RemoveObjectFromCache(System.String)">
+            <summary>
+             Removes the given object from the cache.
+            </summary>
+            <param name="objectId">the object id</param>
+        </member>
+        <member name="M:DotCMIS.Client.ISession.Query(System.String,System.Boolean)">
+            <summary>
+            Performs a query.
+            </summary>
+            <param name="statement">the CMIS QL statement</param>
+            <param name="searchAllVersions">indicates if all versions or only latest version should be searched</param>
+            <returns>query results</returns>
+        </member>
+        <member name="M:DotCMIS.Client.ISession.Query(System.String,System.Boolean,DotCMIS.Client.IOperationContext)">
+            <summary>
+            Performs a query using the given <see cref="T:DotCMIS.Client.IOperationContext"/>.
+            </summary>
+            <param name="statement">the CMIS QL statement</param>
+            <param name="searchAllVersions">indicates if all versions or only latest version should be searched</param>
+            <param name="context">the <see cref="T:DotCMIS.Client.IOperationContext"/></param>
+            <returns>query results</returns>
+        </member>
+        <member name="P:DotCMIS.Client.ISession.Binding">
+            <summary>
+            Gets the CMIS binding object.
+            </summary>
+        </member>
+        <member name="P:DotCMIS.Client.ISession.DefaultContext">
+            <summary>
+            Gets the default operation context.
+            </summary>
+        </member>
+        <member name="P:DotCMIS.Client.ISession.RepositoryInfo">
+            <summary>
+            Gets the CMIS repositoy info.
+            </summary>
+        </member>
+        <member name="P:DotCMIS.Client.ISession.ObjectFactory">
+            <summary>
+            Gets the internal object factory. 
+            </summary>
+        </member>
+        <member name="T:DotCMIS.Client.IOperationContext">
+            <summary>
+            Operation context interface.
+            </summary>
+        </member>
+        <member name="P:DotCMIS.Client.IOperationContext.Filter">
+            <summary>
+            Gets and sets the property filter.
+            </summary>
+            <remarks>
+            This is a set of query names.
+            </remarks>
+        </member>
+        <member name="P:DotCMIS.Client.IOperationContext.FilterString">
+            <summary>
+            Gets and sets the property filter.
+            </summary>
+            <remarks>
+            This is a comma-separated list of query names.
+            </remarks>
+        </member>
+        <member name="P:DotCMIS.Client.IOperationContext.IncludeAllowableActions">
+            <summary>
+            Gets and sets if allowable actions should be retrieved.
+            </summary>
+        </member>
+        <member name="P:DotCMIS.Client.IOperationContext.IncludeAcls">
+            <summary>
+            Gets and sets if ACLs should be retrieved.
+            </summary>
+        </member>
+        <member name="P:DotCMIS.Client.IOperationContext.IncludeRelationships">
+            <summary>
+            Gets and sets if relationships should be retrieved.
+            </summary>
+        </member>
+        <member name="P:DotCMIS.Client.IOperationContext.IncludePolicies">
+            <summary>
+            Gets and sets if policies should be retrieved.
+            </summary>
+        </member>
+        <member name="P:DotCMIS.Client.IOperationContext.RenditionFilter">
+            <summary>
+            Gets and sets the rendition filter.
+            </summary>
+            <remarks>
+            This is a set of rendition kinds or MIME types.
+            </remarks>
+        </member>
+        <member name="P:DotCMIS.Client.IOperationContext.RenditionFilterString">
+            <summary>
+            Gets and sets the rendition filter.
+            </summary>
+            <remarks>
+            This is a comma-separated list of rendition kinds or MIME types.
+            </remarks>
+        </member>
+        <member name="P:DotCMIS.Client.IOperationContext.IncludePathSegments">
+            <summary>
+            Gets and sets if path segements should be retrieved.
+            </summary>
+        </member>
+        <member name="P:DotCMIS.Client.IOperationContext.OrderBy">
+            <summary>
+            Gets and sets order by list. 
+            </summary>
+            <remarks>
+            This is a comma-separated list of query names.
+            </remarks>
+        </member>
+        <member name="P:DotCMIS.Client.IOperationContext.CacheEnabled">
+            <summary>
+            Gets and sets if object fetched with this <see cref="T:DotCMIS.Client.IOperationContext"/>
+            should be cached or not.
+            </summary>
+        </member>
+        <member name="P:DotCMIS.Client.IOperationContext.CacheKey">
+            <summary>
+            Gets the cache key. (For internal use.)
+            </summary>
+        </member>
+        <member name="P:DotCMIS.Client.IOperationContext.MaxItemsPerPage">
+            <summary>
+            Gets and sets how many items should be fetched per page.
+            </summary>
+        </member>
+        <member name="T:DotCMIS.Client.IObjectType">
+            <summary>
+            Base interface for all CMIS types.
+            </summary>
+        </member>
+        <member name="T:DotCMIS.Client.IDocumentType">
+            <summary>
+            Document type interface.
+            </summary>
+        </member>
+        <member name="T:DotCMIS.Client.IFolderType">
+            <summary>
+            Folder type interface.
+            </summary>
+        </member>
+        <member name="T:DotCMIS.Client.IRelationshipType">
+            <summary>
+            Relationship type interface.
+            </summary>
+        </member>
+        <member name="T:DotCMIS.Client.IPolicyType">
+            <summary>
+            Policy type interface.
+            </summary>
+        </member>
+        <member name="T:DotCMIS.Util.LRUCache`2">
+            <summary>
+            LRU cache implementation. Not thread safe!
+            </summary>
+        </member>
+        <member name="T:DotCMIS.Binding.RepositoryInfoCache">
+            <summary>
+            Repository Info cache.
+            </summary>
+        </member>
+        <member name="T:DotCMIS.Binding.TypeDefinitionCache">
+            <summary>
+            Type Definition cache.
+            </summary>
+        </member>
+        <member name="M:DotCMIS.Binding.Converter.ProcessAnyElements(System.Xml.XmlElement[],DotCMIS.Binding.Converter.ProcessAnyElement)">
+            <summary>
+            Walks through CMIS Any elements.
+            </summary>
+        </member>
+        <member name="M:DotCMIS.Binding.Converter.DeserializeString(System.Xml.XmlElement)">
+            <summary>
+            Deserializes a string.
+            </summary>
+        </member>
+        <member name="M:DotCMIS.Binding.Converter.DeserializeInteger(System.Xml.XmlElement)">
+            <summary>
+            Deserializes an integer.
+            </summary>
+        </member>
+        <member name="M:DotCMIS.Binding.Converter.DeserializeDecimal(System.Xml.XmlElement)">
+            <summary>
+            Deserializes a decimal.
+            </summary>
+        </member>
+        <member name="M:DotCMIS.Binding.Converter.DeserializeBoolean(System.Xml.XmlElement)">
+            <summary>
+            Deserializes a boolean.
+            </summary>
+        </member>
+        <member name="M:DotCMIS.Binding.Converter.DeserializeEnum``1(System.Xml.XmlElement)">
+            <summary>
+            Deserializes an enum.
+            </summary>
+        </member>
+        <member name="M:DotCMIS.Binding.Converter.DeserializeElement``1(System.Xml.XmlElement)">
+            <summary>
+            Deserializes a choice or defaultValue elemenet.
+            </summary>
+        </member>
+        <member name="M:DotCMIS.Binding.Converter.Convert(DotCMIS.CMISWebServicesReference.cmisRepositoryInfoType)">
+            <summary>
+            Converts a repository info.
+            </summary>
+        </member>
+        <member name="M:DotCMIS.Binding.Converter.Convert(DotCMIS.CMISWebServicesReference.cmisRepositoryCapabilitiesType)">
+            <summary>
+            Converts repository capabilities.
+            </summary>
+        </member>
+        <member name="M:DotCMIS.Binding.Converter.Convert(DotCMIS.CMISWebServicesReference.cmisACLCapabilityType)">
+            <summary>
+            Converts ACL capabilities.
+            </summary>
+        </member>
+        <member name="M:DotCMIS.Binding.Converter.Convert(DotCMIS.CMISWebServicesReference.cmisTypeDefinitionListType)">
+            <summary>
+            Converts a type defintion list.
+            </summary> 
+        </member>
+        <member name="M:DotCMIS.Binding.Converter.Convert(DotCMIS.CMISWebServicesReference.cmisTypeContainer)">
+            <summary>
+            Converts a type defintion container.
+            </summary> 
+        </member>
+        <member name="M:DotCMIS.Binding.Converter.ConvertExtension(System.Object,DotCMIS.Data.Extensions.IExtensionsData)">
+            <summary>
+            Converts an extension.
+            </summary> 
+        </member>
+        <member name="M:DotCMIS.Binding.Converter.ConvertExtension(DotCMIS.Data.Extensions.IExtensionsData)">
+            <summary>
+            Converts an extension.
+            </summary>
+        </member>
+        <member name="T:DotCMIS.Client.Impl.OperationContext">
+            <summary>
+            Operation context implementation.
+            </summary>
+        </member>
+        <member name="T:DotCMIS.Client.Impl.ObjectId">
+            <summary>
+            Object id implementation.
+            </summary>
+        </member>
+        <member name="T:DotCMIS.Client.Impl.Tree`1">
+            <summary>
+            Tree implementation.
+            </summary>
+        </member>
+        <member name="T:DotCMIS.Client.Impl.AbstractEnumerable`1">
+            <summary>
+            Base class for IItemEnumerable's.
+            </summary>
+        </member>
+        <member name="T:DotCMIS.Client.Impl.AbstractEnumerator`1">
+            <summary>
+            Abstract Enumerator implementation.
+            </summary>
+        </member>
+        <member name="T:DotCMIS.Client.Impl.PageFetcher`1">
+            <summary>
+            Page fetcher.
+            </summary>
+        </member>
+        <member name="T:DotCMIS.Client.Impl.CollectionEnumerable`1">
+            <summary>
+            CMIS Collection Enumerable.
+            </summary>
+        </member>
+        <member name="T:DotCMIS.Client.Impl.CollectionEnumerator`1">
+            <summary>
+            Enumerator for iterating over all items in a CMIS Collection.
+            </summary>
+        </member>
+        <member name="T:DotCMIS.Client.Impl.CollectionPageEnumerable`1">
+            <summary>
+            Enumerable for a CMIS Collection Page.
+            </summary>
+        </member>
+        <member name="T:DotCMIS.Client.Impl.CollectionPageEnumerator`1">
+            <summary>
+            Enumerator for iterating over a page of items in a CMIS Collection.
+            </summary>
+        </member>
+        <member name="T:DotCMIS.Client.Impl.ObjectTypeHelper">
+            <summary>
+            Helper for all type implementations.
+            </summary>
+        </member>
+        <member name="T:DotCMIS.Client.Impl.DocumentType">
+            <summary>
+            Document type implementation.
+            </summary>
+        </member>
+        <member name="T:DotCMIS.Client.Impl.FolderType">
+            <summary>
+            Folder type implementation.
+            </summary>
+        </member>
+        <member name="T:DotCMIS.Client.Impl.RelationshipType">
+            <summary>
+            Relationship type implementation.
+            </summary>
+        </member>
+        <member name="T:DotCMIS.Client.Impl.PolicyType">
+            <summary>
+            Policy type implementation.
+            </summary>
+        </member>
+        <member name="T:DotCMIS.Binding.WebServices.CmisWebServicesSpi">
+            <summary>
+            Web Services binding SPI.
+            </summary>
+        </member>
+        <member name="T:DotCMIS.Binding.Impl.ICmisSpi">
+            <summary>
+            SPI interface.
+            </summary>
+        </member>
+        <member name="T:DotCMIS.Binding.WebServices.AbstractWebServicesService">
+            <summary>
+            Common service methods.
+            </summary>
+        </member>
+        <member name="T:DotCMIS.Client.Impl.SessionFactory">
+            <summary>
+            Session factory implementation.
+            </summary>
+        </member>
+        <member name="T:DotCMIS.Client.Impl.CmisBindingHelper">
+            <summary>
+            Binding helper class.
+            </summary>
+        </member>
+        <member name="T:DotCMIS.Client.Impl.Repository">
+            <summary>
+            Repository implementation.
+            </summary>
+        </member>
+        <member name="T:DotCMIS.Client.Impl.Session">
+            <summary>
+            Session implementation.
+            </summary>
+        </member>
+        <member name="T:DotCMIS.Binding.AtomPub.CmisAtomPubSpi">
+            <summary>
+            AtomPub binding SPI.
+            </summary>
+        </member>
+        <member name="T:DotCMIS.Client.Impl.Cache.ICache">
+            <summary>
+            Client cache interface.
+            </summary>
+        </member>
+        <member name="T:DotCMIS.Client.Impl.Cache.NoCache">
+            <summary>
+            Cache implementation that doesn't cache.
+            </summary>
+        </member>
+        <member name="T:DotCMIS.CMISWebServicesReference.cmisFaultType">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisFaultType.type">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisFaultType.code">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisFaultType.message">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisFaultType.Any">
+            <remarks/>
+        </member>
+        <member name="T:DotCMIS.CMISWebServicesReference.enumServiceException">
+            <remarks/>
+        </member>
+        <member name="F:DotCMIS.CMISWebServicesReference.enumServiceException.constraint">
+            <remarks/>
+        </member>
+        <member name="F:DotCMIS.CMISWebServicesReference.enumServiceException.nameConstraintViolation">
+            <remarks/>
+        </member>
+        <member name="F:DotCMIS.CMISWebServicesReference.enumServiceException.contentAlreadyExists">
+            <remarks/>
+        </member>
+        <member name="F:DotCMIS.CMISWebServicesReference.enumServiceException.filterNotValid">
+            <remarks/>
+        </member>
+        <member name="F:DotCMIS.CMISWebServicesReference.enumServiceException.invalidArgument">
+            <remarks/>
+        </member>
+        <member name="F:DotCMIS.CMISWebServicesReference.enumServiceException.notSupported">
+            <remarks/>
+        </member>
+        <member name="F:DotCMIS.CMISWebServicesReference.enumServiceException.objectNotFound">
+            <remarks/>
+        </member>
+        <member name="F:DotCMIS.CMISWebServicesReference.enumServiceException.permissionDenied">
+            <remarks/>
+        </member>
+        <member name="F:DotCMIS.CMISWebServicesReference.enumServiceException.runtime">
+            <remarks/>
+        </member>
+        <member name="F:DotCMIS.CMISWebServicesReference.enumServiceException.storage">
+            <remarks/>
+        </member>
+        <member name="F:DotCMIS.CMISWebServicesReference.enumServiceException.streamNotSupported">
+            <remarks/>
+        </member>
+        <member name="F:DotCMIS.CMISWebServicesReference.enumServiceException.updateConflict">
+            <remarks/>
+        </member>
+        <member name="F:DotCMIS.CMISWebServicesReference.enumServiceException.versioning">
+            <remarks/>
+        </member>
+        <member name="T:DotCMIS.CMISWebServicesReference.cmisRenditionType">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisRenditionType.streamId">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisRenditionType.mimetype">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisRenditionType.length">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisRenditionType.kind">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisRenditionType.title">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisRenditionType.height">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisRenditionType.width">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisRenditionType.renditionDocumentId">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisRenditionType.Any">
+            <remarks/>
+        </member>
+        <member name="T:DotCMIS.CMISWebServicesReference.cmisListOfIdsType">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisListOfIdsType.id">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisListOfIdsType.Any">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisListOfIdsType.AnyAttr">
+            <remarks/>
+        </member>
+        <member name="T:DotCMIS.CMISWebServicesReference.cmisAccessControlPrincipalType">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisAccessControlPrincipalType.principalId">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisAccessControlPrincipalType.Any">
+            <remarks/>
+        </member>
+        <member name="T:DotCMIS.CMISWebServicesReference.cmisAccessControlEntryType">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisAccessControlEntryType.principal">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisAccessControlEntryType.permission">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisAccessControlEntryType.direct">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisAccessControlEntryType.Any">
+            <remarks/>
+        </member>
+        <member name="T:DotCMIS.CMISWebServicesReference.cmisAccessControlListType">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisAccessControlListType.permission">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisAccessControlListType.Any">
+            <remarks/>
+        </member>
+        <member name="T:DotCMIS.CMISWebServicesReference.cmisChangeEventType">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisChangeEventType.changeType">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisChangeEventType.changeTime">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisChangeEventType.Any">
+            <remarks/>
+        </member>
+        <member name="T:DotCMIS.CMISWebServicesReference.enumTypeOfChanges">
+            <remarks/>
+        </member>
+        <member name="F:DotCMIS.CMISWebServicesReference.enumTypeOfChanges.created">
+            <remarks/>
+        </member>
+        <member name="F:DotCMIS.CMISWebServicesReference.enumTypeOfChanges.updated">
+            <remarks/>
+        </member>
+        <member name="F:DotCMIS.CMISWebServicesReference.enumTypeOfChanges.deleted">
+            <remarks/>
+        </member>
+        <member name="F:DotCMIS.CMISWebServicesReference.enumTypeOfChanges.security">
+            <remarks/>
+        </member>
+        <member name="T:DotCMIS.CMISWebServicesReference.cmisAllowableActionsType">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisAllowableActionsType.canDeleteObject">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisAllowableActionsType.canDeleteObjectSpecified">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisAllowableActionsType.canUpdateProperties">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisAllowableActionsType.canUpdatePropertiesSpecified">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisAllowableActionsType.canGetFolderTree">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisAllowableActionsType.canGetFolderTreeSpecified">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisAllowableActionsType.canGetProperties">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisAllowableActionsType.canGetPropertiesSpecified">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisAllowableActionsType.canGetObjectRelationships">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisAllowableActionsType.canGetObjectRelationshipsSpecified">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisAllowableActionsType.canGetObjectParents">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisAllowableActionsType.canGetObjectParentsSpecified">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisAllowableActionsType.canGetFolderParent">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisAllowableActionsType.canGetFolderParentSpecified">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisAllowableActionsType.canGetDescendants">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisAllowableActionsType.canGetDescendantsSpecified">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisAllowableActionsType.canMoveObject">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisAllowableActionsType.canMoveObjectSpecified">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisAllowableActionsType.canDeleteContentStream">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisAllowableActionsType.canDeleteContentStreamSpecified">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisAllowableActionsType.canCheckOut">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisAllowableActionsType.canCheckOutSpecified">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisAllowableActionsType.canCancelCheckOut">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisAllowableActionsType.canCancelCheckOutSpecified">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisAllowableActionsType.canCheckIn">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisAllowableActionsType.canCheckInSpecified">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisAllowableActionsType.canSetContentStream">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisAllowableActionsType.canSetContentStreamSpecified">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisAllowableActionsType.canGetAllVersions">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisAllowableActionsType.canGetAllVersionsSpecified">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisAllowableActionsType.canAddObjectToFolder">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisAllowableActionsType.canAddObjectToFolderSpecified">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisAllowableActionsType.canRemoveObjectFromFolder">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisAllowableActionsType.canRemoveObjectFromFolderSpecified">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisAllowableActionsType.canGetContentStream">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisAllowableActionsType.canGetContentStreamSpecified">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisAllowableActionsType.canApplyPolicy">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisAllowableActionsType.canApplyPolicySpecified">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisAllowableActionsType.canGetAppliedPolicies">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisAllowableActionsType.canGetAppliedPoliciesSpecified">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisAllowableActionsType.canRemovePolicy">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisAllowableActionsType.canRemovePolicySpecified">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisAllowableActionsType.canGetChildren">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisAllowableActionsType.canGetChildrenSpecified">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisAllowableActionsType.canCreateDocument">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisAllowableActionsType.canCreateDocumentSpecified">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisAllowableActionsType.canCreateFolder">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisAllowableActionsType.canCreateFolderSpecified">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisAllowableActionsType.canCreateRelationship">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisAllowableActionsType.canCreateRelationshipSpecified">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisAllowableActionsType.canDeleteTree">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisAllowableActionsType.canDeleteTreeSpecified">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisAllowableActionsType.canGetRenditions">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisAllowableActionsType.canGetRenditionsSpecified">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisAllowableActionsType.canGetACL">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisAllowableActionsType.canGetACLSpecified">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisAllowableActionsType.canApplyACL">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisAllowableActionsType.canApplyACLSpecified">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisAllowableActionsType.Any">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisAllowableActionsType.AnyAttr">
+            <remarks/>
+        </member>
+        <member name="T:DotCMIS.CMISWebServicesReference.cmisProperty">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisProperty.propertyDefinitionId">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisProperty.localName">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisProperty.displayName">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisProperty.queryName">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisProperty.AnyAttr">
+            <remarks/>
+        </member>
+        <member name="T:DotCMIS.CMISWebServicesReference.cmisPropertyUri">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisPropertyUri.value">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisPropertyUri.Any">
+            <remarks/>
+        </member>
+        <member name="T:DotCMIS.CMISWebServicesReference.cmisPropertyString">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisPropertyString.value">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisPropertyString.Any">
+            <remarks/>
+        </member>
+        <member name="T:DotCMIS.CMISWebServicesReference.cmisPropertyHtml">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisPropertyHtml.value">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisPropertyHtml.Any">
+            <remarks/>
+        </member>
+        <member name="T:DotCMIS.CMISWebServicesReference.cmisPropertyDecimal">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisPropertyDecimal.value">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisPropertyDecimal.Any">
+            <remarks/>
+        </member>
+        <member name="T:DotCMIS.CMISWebServicesReference.cmisPropertyDateTime">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisPropertyDateTime.value">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisPropertyDateTime.Any">
+            <remarks/>
+        </member>
+        <member name="T:DotCMIS.CMISWebServicesReference.cmisPropertyInteger">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisPropertyInteger.value">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisPropertyInteger.Any">
+            <remarks/>
+        </member>
+        <member name="T:DotCMIS.CMISWebServicesReference.cmisPropertyId">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisPropertyId.value">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisPropertyId.Any">
+            <remarks/>
+        </member>
+        <member name="T:DotCMIS.CMISWebServicesReference.cmisPropertyBoolean">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisPropertyBoolean.value">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisPropertyBoolean.Any">
+            <remarks/>
+        </member>
+        <member name="T:DotCMIS.CMISWebServicesReference.cmisPropertiesType">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisPropertiesType.Items">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisPropertiesType.Any">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisPropertiesType.AnyAttr">
+            <remarks/>
+        </member>
+        <member name="T:DotCMIS.CMISWebServicesReference.cmisObjectType">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisObjectType.properties">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisObjectType.allowableActions">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisObjectType.relationship">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisObjectType.changeEventInfo">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisObjectType.acl">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisObjectType.exactACL">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisObjectType.exactACLSpecified">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisObjectType.policyIds">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisObjectType.rendition">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisObjectType.Any">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisObjectType.AnyAttr">
+            <remarks/>
+        </member>
+        <member name="T:DotCMIS.CMISWebServicesReference.cmisObjectListType">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisObjectListType.objects">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisObjectListType.hasMoreItems">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisObjectListType.numItems">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisObjectListType.Any">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisObjectListType.AnyAttr">
+            <remarks/>
+        </member>
+        <member name="T:DotCMIS.CMISWebServicesReference.cmisExtensionType">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisExtensionType.Any">
+            <remarks/>
+        </member>
+        <member name="T:DotCMIS.CMISWebServicesReference.enumIncludeRelationships">
+            <remarks/>
+        </member>
+        <member name="F:DotCMIS.CMISWebServicesReference.enumIncludeRelationships.none">
+            <remarks/>
+        </member>
+        <member name="F:DotCMIS.CMISWebServicesReference.enumIncludeRelationships.source">
+            <remarks/>
+        </member>
+        <member name="F:DotCMIS.CMISWebServicesReference.enumIncludeRelationships.target">
+            <remarks/>
+        </member>
+        <member name="F:DotCMIS.CMISWebServicesReference.enumIncludeRelationships.both">
+            <remarks/>
+        </member>
+        <member name="T:DotCMIS.CMISWebServicesReference.cmisObjectInFolderContainerType">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisObjectInFolderContainerType.objectInFolder">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisObjectInFolderContainerType.children">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisObjectInFolderContainerType.Any">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisObjectInFolderContainerType.AnyAttr">
+            <remarks/>
+        </member>
+        <member name="T:DotCMIS.CMISWebServicesReference.cmisObjectInFolderType">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisObjectInFolderType.object">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisObjectInFolderType.pathSegment">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisObjectInFolderType.Any">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisObjectInFolderType.AnyAttr">
+            <remarks/>
+        </member>
+        <member name="T:DotCMIS.CMISWebServicesReference.cmisObjectInFolderListType">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisObjectInFolderListType.objects">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisObjectInFolderListType.hasMoreItems">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisObjectInFolderListType.numItems">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisObjectInFolderListType.Any">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisObjectInFolderListType.AnyAttr">
+            <remarks/>
+        </member>
+        <member name="T:DotCMIS.CMISWebServicesReference.cmisObjectParentsType">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisObjectParentsType.object">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisObjectParentsType.relativePathSegment">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisObjectParentsType.Any">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisObjectParentsType.AnyAttr">
+            <remarks/>
+        </member>
+        <member name="T:DotCMIS.CMISWebServicesReference.cmisContentStreamType">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisContentStreamType.length">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisContentStreamType.mimeType">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisContentStreamType.filename">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisContentStreamType.stream">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisContentStreamType.Any">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisContentStreamType.AnyAttr">
+            <remarks/>
+        </member>
+        <member name="T:DotCMIS.CMISWebServicesReference.enumVersioningState">
+            <remarks/>
+        </member>
+        <member name="F:DotCMIS.CMISWebServicesReference.enumVersioningState.none">
+            <remarks/>
+        </member>
+        <member name="F:DotCMIS.CMISWebServicesReference.enumVersioningState.checkedout">
+            <remarks/>
+        </member>
+        <member name="F:DotCMIS.CMISWebServicesReference.enumVersioningState.minor">
+            <remarks/>
+        </member>
+        <member name="F:DotCMIS.CMISWebServicesReference.enumVersioningState.major">
+            <remarks/>
+        </member>
+        <member name="T:DotCMIS.CMISWebServicesReference.enumUnfileObject">
+            <remarks/>
+        </member>
+        <member name="F:DotCMIS.CMISWebServicesReference.enumUnfileObject.unfile">
+            <remarks/>
+        </member>
+        <member name="F:DotCMIS.CMISWebServicesReference.enumUnfileObject.deletesinglefiled">
+            <remarks/>
+        </member>
+        <member name="F:DotCMIS.CMISWebServicesReference.enumUnfileObject.delete">
+            <remarks/>
+        </member>
+        <member name="T:DotCMIS.CMISWebServicesReference.deleteTreeResponseFailedToDelete">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.deleteTreeResponseFailedToDelete.objectIds">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.deleteTreeResponseFailedToDelete.Any">
+            <remarks/>
+        </member>
+        <member name="T:DotCMIS.CMISWebServicesReference.enumRelationshipDirection">
+            <remarks/>
+        </member>
+        <member name="F:DotCMIS.CMISWebServicesReference.enumRelationshipDirection.source">
+            <remarks/>
+        </member>
+        <member name="F:DotCMIS.CMISWebServicesReference.enumRelationshipDirection.target">
+            <remarks/>
+        </member>
+        <member name="F:DotCMIS.CMISWebServicesReference.enumRelationshipDirection.either">
+            <remarks/>
+        </member>
+        <member name="T:DotCMIS.CMISWebServicesReference.cmisRepositoryEntryType">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisRepositoryEntryType.repositoryId">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisRepositoryEntryType.repositoryName">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisRepositoryEntryType.Any">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisRepositoryEntryType.AnyAttr">
+            <remarks/>
+        </member>
+        <member name="T:DotCMIS.CMISWebServicesReference.cmisRepositoryInfoType">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisRepositoryInfoType.repositoryId">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisRepositoryInfoType.repositoryName">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisRepositoryInfoType.repositoryDescription">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisRepositoryInfoType.vendorName">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisRepositoryInfoType.productName">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisRepositoryInfoType.productVersion">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisRepositoryInfoType.rootFolderId">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisRepositoryInfoType.latestChangeLogToken">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisRepositoryInfoType.capabilities">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisRepositoryInfoType.aclCapability">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisRepositoryInfoType.cmisVersionSupported">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisRepositoryInfoType.thinClientURI">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisRepositoryInfoType.changesIncomplete">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisRepositoryInfoType.changesIncompleteSpecified">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisRepositoryInfoType.changesOnType">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisRepositoryInfoType.principalAnonymous">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisRepositoryInfoType.principalAnyone">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisRepositoryInfoType.Any">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisRepositoryInfoType.AnyAttr">
+            <remarks/>
+        </member>
+        <member name="T:DotCMIS.CMISWebServicesReference.cmisRepositoryCapabilitiesType">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisRepositoryCapabilitiesType.capabilityACL">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisRepositoryCapabilitiesType.capabilityAllVersionsSearchable">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisRepositoryCapabilitiesType.capabilityChanges">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisRepositoryCapabilitiesType.capabilityContentStreamUpdatability">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisRepositoryCapabilitiesType.capabilityGetDescendants">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisRepositoryCapabilitiesType.capabilityGetFolderTree">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisRepositoryCapabilitiesType.capabilityMultifiling">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisRepositoryCapabilitiesType.capabilityPWCSearchable">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisRepositoryCapabilitiesType.capabilityPWCUpdatable">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisRepositoryCapabilitiesType.capabilityQuery">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisRepositoryCapabilitiesType.capabilityRenditions">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisRepositoryCapabilitiesType.capabilityUnfiling">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisRepositoryCapabilitiesType.capabilityVersionSpecificFiling">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisRepositoryCapabilitiesType.capabilityJoin">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisRepositoryCapabilitiesType.Any">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisRepositoryCapabilitiesType.AnyAttr">
+            <remarks/>
+        </member>
+        <member name="T:DotCMIS.CMISWebServicesReference.enumCapabilityACL">
+            <remarks/>
+        </member>
+        <member name="F:DotCMIS.CMISWebServicesReference.enumCapabilityACL.none">
+            <remarks/>
+        </member>
+        <member name="F:DotCMIS.CMISWebServicesReference.enumCapabilityACL.discover">
+            <remarks/>
+        </member>
+        <member name="F:DotCMIS.CMISWebServicesReference.enumCapabilityACL.manage">
+            <remarks/>
+        </member>
+        <member name="T:DotCMIS.CMISWebServicesReference.enumCapabilityChanges">
+            <remarks/>
+        </member>
+        <member name="F:DotCMIS.CMISWebServicesReference.enumCapabilityChanges.none">
+            <remarks/>
+        </member>
+        <member name="F:DotCMIS.CMISWebServicesReference.enumCapabilityChanges.objectidsonly">
+            <remarks/>
+        </member>
+        <member name="F:DotCMIS.CMISWebServicesReference.enumCapabilityChanges.properties">
+            <remarks/>
+        </member>
+        <member name="F:DotCMIS.CMISWebServicesReference.enumCapabilityChanges.all">
+            <remarks/>
+        </member>
+        <member name="T:DotCMIS.CMISWebServicesReference.enumCapabilityContentStreamUpdates">
+            <remarks/>
+        </member>
+        <member name="F:DotCMIS.CMISWebServicesReference.enumCapabilityContentStreamUpdates.anytime">
+            <remarks/>
+        </member>
+        <member name="F:DotCMIS.CMISWebServicesReference.enumCapabilityContentStreamUpdates.pwconly">
+            <remarks/>
+        </member>
+        <member name="F:DotCMIS.CMISWebServicesReference.enumCapabilityContentStreamUpdates.none">
+            <remarks/>
+        </member>
+        <member name="T:DotCMIS.CMISWebServicesReference.enumCapabilityQuery">
+            <remarks/>
+        </member>
+        <member name="F:DotCMIS.CMISWebServicesReference.enumCapabilityQuery.none">
+            <remarks/>
+        </member>
+        <member name="F:DotCMIS.CMISWebServicesReference.enumCapabilityQuery.metadataonly">
+            <remarks/>
+        </member>
+        <member name="F:DotCMIS.CMISWebServicesReference.enumCapabilityQuery.fulltextonly">
+            <remarks/>
+        </member>
+        <member name="F:DotCMIS.CMISWebServicesReference.enumCapabilityQuery.bothseparate">
+            <remarks/>
+        </member>
+        <member name="F:DotCMIS.CMISWebServicesReference.enumCapabilityQuery.bothcombined">
+            <remarks/>
+        </member>
+        <member name="T:DotCMIS.CMISWebServicesReference.enumCapabilityRendition">
+            <remarks/>
+        </member>
+        <member name="F:DotCMIS.CMISWebServicesReference.enumCapabilityRendition.none">
+            <remarks/>
+        </member>
+        <member name="F:DotCMIS.CMISWebServicesReference.enumCapabilityRendition.read">
+            <remarks/>
+        </member>
+        <member name="T:DotCMIS.CMISWebServicesReference.enumCapabilityJoin">
+            <remarks/>
+        </member>
+        <member name="F:DotCMIS.CMISWebServicesReference.enumCapabilityJoin.none">
+            <remarks/>
+        </member>
+        <member name="F:DotCMIS.CMISWebServicesReference.enumCapabilityJoin.inneronly">
+            <remarks/>
+        </member>
+        <member name="F:DotCMIS.CMISWebServicesReference.enumCapabilityJoin.innerandouter">
+            <remarks/>
+        </member>
+        <member name="T:DotCMIS.CMISWebServicesReference.cmisACLCapabilityType">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisACLCapabilityType.supportedPermissions">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisACLCapabilityType.propagation">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisACLCapabilityType.permissions">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisACLCapabilityType.mapping">
+            <remarks/>
+        </member>
+        <member name="T:DotCMIS.CMISWebServicesReference.enumSupportedPermissions">
+            <remarks/>
+        </member>
+        <member name="F:DotCMIS.CMISWebServicesReference.enumSupportedPermissions.basic">
+            <remarks/>
+        </member>
+        <member name="F:DotCMIS.CMISWebServicesReference.enumSupportedPermissions.repository">
+            <remarks/>
+        </member>
+        <member name="F:DotCMIS.CMISWebServicesReference.enumSupportedPermissions.both">
+            <remarks/>
+        </member>
+        <member name="T:DotCMIS.CMISWebServicesReference.enumACLPropagation">
+            <remarks/>
+        </member>
+        <member name="F:DotCMIS.CMISWebServicesReference.enumACLPropagation.repositorydetermined">
+            <remarks/>
+        </member>
+        <member name="F:DotCMIS.CMISWebServicesReference.enumACLPropagation.objectonly">
+            <remarks/>
+        </member>
+        <member name="F:DotCMIS.CMISWebServicesReference.enumACLPropagation.propagate">
+            <remarks/>
+        </member>
+        <member name="T:DotCMIS.CMISWebServicesReference.cmisPermissionDefinition">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisPermissionDefinition.permission">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisPermissionDefinition.description">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisPermissionDefinition.Any">
+            <remarks/>
+        </member>
+        <member name="T:DotCMIS.CMISWebServicesReference.cmisPermissionMapping">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisPermissionMapping.key">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisPermissionMapping.permission">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisPermissionMapping.Any">
+            <remarks/>
+        </member>
+        <member name="T:DotCMIS.CMISWebServicesReference.enumAllowableActionsKey">
+            <remarks/>
+        </member>
+        <member name="F:DotCMIS.CMISWebServicesReference.enumAllowableActionsKey.canGetDescendentsFolder">
+            <remarks/>
+        </member>
+        <member name="F:DotCMIS.CMISWebServicesReference.enumAllowableActionsKey.canGetChildrenFolder">
+            <remarks/>
+        </member>
+        <member name="F:DotCMIS.CMISWebServicesReference.enumAllowableActionsKey.canGetParentsFolder">
+            <remarks/>
+        </member>
+        <member name="F:DotCMIS.CMISWebServicesReference.enumAllowableActionsKey.canGetFolderParentObject">
+            <remarks/>
+        </member>
+        <member name="F:DotCMIS.CMISWebServicesReference.enumAllowableActionsKey.canCreateDocumentFolder">
+            <remarks/>
+        </member>
+        <member name="F:DotCMIS.CMISWebServicesReference.enumAllowableActionsKey.canCreateFolderFolder">
+            <remarks/>
+        </member>
+        <member name="F:DotCMIS.CMISWebServicesReference.enumAllowableActionsKey.canCreateRelationshipSource">
+            <remarks/>
+        </member>
+        <member name="F:DotCMIS.CMISWebServicesReference.enumAllowableActionsKey.canCreateRelationshipTarget">
+            <remarks/>
+        </member>
+        <member name="F:DotCMIS.CMISWebServicesReference.enumAllowableActionsKey.canGetPropertiesObject">
+            <remarks/>
+        </member>
+        <member name="F:DotCMIS.CMISWebServicesReference.enumAllowableActionsKey.canViewContentObject">
+            <remarks/>
+        </member>
+        <member name="F:DotCMIS.CMISWebServicesReference.enumAllowableActionsKey.canUpdatePropertiesObject">
+            <remarks/>
+        </member>
+        <member name="F:DotCMIS.CMISWebServicesReference.enumAllowableActionsKey.canMoveObject">
+            <remarks/>
+        </member>
+        <member name="F:DotCMIS.CMISWebServicesReference.enumAllowableActionsKey.canMoveTarget">
+            <remarks/>
+        </member>
+        <member name="F:DotCMIS.CMISWebServicesReference.enumAllowableActionsKey.canMoveSource">
+            <remarks/>
+        </member>
+        <member name="F:DotCMIS.CMISWebServicesReference.enumAllowableActionsKey.canDeleteObject">
+            <remarks/>
+        </member>
+        <member name="F:DotCMIS.CMISWebServicesReference.enumAllowableActionsKey.canDeleteTreeFolder">
+            <remarks/>
+        </member>
+        <member name="F:DotCMIS.CMISWebServicesReference.enumAllowableActionsKey.canSetContentDocument">
+            <remarks/>
+        </member>
+        <member name="F:DotCMIS.CMISWebServicesReference.enumAllowableActionsKey.canDeleteContentDocument">
+            <remarks/>
+        </member>
+        <member name="F:DotCMIS.CMISWebServicesReference.enumAllowableActionsKey.canAddToFolderObject">
+            <remarks/>
+        </member>
+        <member name="F:DotCMIS.CMISWebServicesReference.enumAllowableActionsKey.canAddToFolderFolder">
+            <remarks/>
+        </member>
+        <member name="F:DotCMIS.CMISWebServicesReference.enumAllowableActionsKey.canRemoveFromFolderObject">
+            <remarks/>
+        </member>
+        <member name="F:DotCMIS.CMISWebServicesReference.enumAllowableActionsKey.canRemoveFromFolderFolder">
+            <remarks/>
+        </member>
+        <member name="F:DotCMIS.CMISWebServicesReference.enumAllowableActionsKey.canCheckoutDocument">
+            <remarks/>
+        </member>
+        <member name="F:DotCMIS.CMISWebServicesReference.enumAllowableActionsKey.canCancelCheckoutDocument">
+            <remarks/>
+        </member>
+        <member name="F:DotCMIS.CMISWebServicesReference.enumAllowableActionsKey.canCheckinDocument">
+            <remarks/>
+        </member>
+        <member name="F:DotCMIS.CMISWebServicesReference.enumAllowableActionsKey.canGetAllVersionsVersionSeries">
+            <remarks/>
+        </member>
+        <member name="F:DotCMIS.CMISWebServicesReference.enumAllowableActionsKey.canGetObjectRelationshipsObject">
+            <remarks/>
+        </member>
+        <member name="F:DotCMIS.CMISWebServicesReference.enumAllowableActionsKey.canAddPolicyObject">
+            <remarks/>
+        </member>
+        <member name="F:DotCMIS.CMISWebServicesReference.enumAllowableActionsKey.canAddPolicyPolicy">
+            <remarks/>
+        </member>
+        <member name="F:DotCMIS.CMISWebServicesReference.enumAllowableActionsKey.canRemovePolicyObject">
+            <remarks/>
+        </member>
+        <member name="F:DotCMIS.CMISWebServicesReference.enumAllowableActionsKey.canRemovePolicyPolicy">
+            <remarks/>
+        </member>
+        <member name="F:DotCMIS.CMISWebServicesReference.enumAllowableActionsKey.canGetAppliedPoliciesObject">
+            <remarks/>
+        </member>
+        <member name="F:DotCMIS.CMISWebServicesReference.enumAllowableActionsKey.canGetACLObject">
+            <remarks/>
+        </member>
+        <member name="F:DotCMIS.CMISWebServicesReference.enumAllowableActionsKey.canApplyACLObject">
+            <remarks/>
+        </member>
+        <member name="T:DotCMIS.CMISWebServicesReference.enumBaseObjectTypeIds">
+            <remarks/>
+        </member>
+        <member name="F:DotCMIS.CMISWebServicesReference.enumBaseObjectTypeIds.cmisdocument">
+            <remarks/>
+        </member>
+        <member name="F:DotCMIS.CMISWebServicesReference.enumBaseObjectTypeIds.cmisfolder">
+            <remarks/>
+        </member>
+        <member name="F:DotCMIS.CMISWebServicesReference.enumBaseObjectTypeIds.cmisrelationship">
+            <remarks/>
+        </member>
+        <member name="F:DotCMIS.CMISWebServicesReference.enumBaseObjectTypeIds.cmispolicy">
+            <remarks/>
+        </member>
+        <member name="T:DotCMIS.CMISWebServicesReference.cmisTypeDefinitionListType">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisTypeDefinitionListType.types">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisTypeDefinitionListType.hasMoreItems">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisTypeDefinitionListType.numItems">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisTypeDefinitionListType.Any">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisTypeDefinitionListType.AnyAttr">
+            <remarks/>
+        </member>
+        <member name="T:DotCMIS.CMISWebServicesReference.cmisTypeDefinitionType">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisTypeDefinitionType.id">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisTypeDefinitionType.localName">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisTypeDefinitionType.localNamespace">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisTypeDefinitionType.displayName">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisTypeDefinitionType.queryName">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisTypeDefinitionType.description">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisTypeDefinitionType.baseId">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisTypeDefinitionType.parentId">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisTypeDefinitionType.creatable">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisTypeDefinitionType.fileable">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisTypeDefinitionType.queryable">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisTypeDefinitionType.fulltextIndexed">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisTypeDefinitionType.includedInSupertypeQuery">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisTypeDefinitionType.controllablePolicy">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisTypeDefinitionType.controllableACL">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisTypeDefinitionType.Items">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisTypeDefinitionType.Any">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisTypeDefinitionType.AnyAttr">
+            <remarks/>
+        </member>
+        <member name="T:DotCMIS.CMISWebServicesReference.cmisPropertyBooleanDefinitionType">
+            <remarks/>
+        </member>
+        <member name="T:DotCMIS.CMISWebServicesReference.cmisPropertyDefinitionType">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisPropertyDefinitionType.id">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisPropertyDefinitionType.localName">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisPropertyDefinitionType.localNamespace">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisPropertyDefinitionType.displayName">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisPropertyDefinitionType.queryName">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisPropertyDefinitionType.description">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisPropertyDefinitionType.propertyType">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisPropertyDefinitionType.cardinality">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisPropertyDefinitionType.updatability">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisPropertyDefinitionType.inherited">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisPropertyDefinitionType.inheritedSpecified">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisPropertyDefinitionType.required">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisPropertyDefinitionType.queryable">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisPropertyDefinitionType.orderable">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisPropertyDefinitionType.openChoice">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisPropertyDefinitionType.openChoiceSpecified">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisPropertyDefinitionType.Any">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisPropertyDefinitionType.AnyAttr">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisPropertyBooleanDefinitionType.defaultValue">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisPropertyBooleanDefinitionType.choice">
+            <remarks/>
+        </member>
+        <member name="T:DotCMIS.CMISWebServicesReference.cmisChoiceBoolean">
+            <remarks/>
+        </member>
+        <member name="T:DotCMIS.CMISWebServicesReference.cmisChoice">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisChoice.displayName">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisChoice.AnyAttr">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisChoiceBoolean.value">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisChoiceBoolean.choice">
+            <remarks/>
+        </member>
+        <member name="T:DotCMIS.CMISWebServicesReference.cmisChoiceUri">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisChoiceUri.value">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisChoiceUri.choice">
+            <remarks/>
+        </member>
+        <member name="T:DotCMIS.CMISWebServicesReference.cmisChoiceString">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisChoiceString.value">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisChoiceString.choice">
+            <remarks/>
+        </member>
+        <member name="T:DotCMIS.CMISWebServicesReference.cmisChoiceHtml">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisChoiceHtml.value">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisChoiceHtml.choice">
+            <remarks/>
+        </member>
+        <member name="T:DotCMIS.CMISWebServicesReference.cmisChoiceDecimal">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisChoiceDecimal.value">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisChoiceDecimal.choice">
+            <remarks/>
+        </member>
+        <member name="T:DotCMIS.CMISWebServicesReference.cmisChoiceDateTime">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisChoiceDateTime.value">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisChoiceDateTime.choice">
+            <remarks/>
+        </member>
+        <member name="T:DotCMIS.CMISWebServicesReference.cmisChoiceInteger">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisChoiceInteger.value">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisChoiceInteger.choice">
+            <remarks/>
+        </member>
+        <member name="T:DotCMIS.CMISWebServicesReference.cmisChoiceId">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisChoiceId.value">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisChoiceId.choice">
+            <remarks/>
+        </member>
+        <member name="T:DotCMIS.CMISWebServicesReference.enumPropertyType">
+            <remarks/>
+        </member>
+        <member name="F:DotCMIS.CMISWebServicesReference.enumPropertyType.boolean">
+            <remarks/>
+        </member>
+        <member name="F:DotCMIS.CMISWebServicesReference.enumPropertyType.id">
+            <remarks/>
+        </member>
+        <member name="F:DotCMIS.CMISWebServicesReference.enumPropertyType.integer">
+            <remarks/>
+        </member>
+        <member name="F:DotCMIS.CMISWebServicesReference.enumPropertyType.datetime">
+            <remarks/>
+        </member>
+        <member name="F:DotCMIS.CMISWebServicesReference.enumPropertyType.decimal">
+            <remarks/>
+        </member>
+        <member name="F:DotCMIS.CMISWebServicesReference.enumPropertyType.html">
+            <remarks/>
+        </member>
+        <member name="F:DotCMIS.CMISWebServicesReference.enumPropertyType.string">
+            <remarks/>
+        </member>
+        <member name="F:DotCMIS.CMISWebServicesReference.enumPropertyType.uri">
+            <remarks/>
+        </member>
+        <member name="T:DotCMIS.CMISWebServicesReference.enumCardinality">
+            <remarks/>
+        </member>
+        <member name="F:DotCMIS.CMISWebServicesReference.enumCardinality.single">
+            <remarks/>
+        </member>
+        <member name="F:DotCMIS.CMISWebServicesReference.enumCardinality.multi">
+            <remarks/>
+        </member>
+        <member name="T:DotCMIS.CMISWebServicesReference.enumUpdatability">
+            <remarks/>
+        </member>
+        <member name="F:DotCMIS.CMISWebServicesReference.enumUpdatability.readonly">
+            <remarks/>
+        </member>
+        <member name="F:DotCMIS.CMISWebServicesReference.enumUpdatability.readwrite">
+            <remarks/>
+        </member>
+        <member name="F:DotCMIS.CMISWebServicesReference.enumUpdatability.whencheckedout">
+            <remarks/>
+        </member>
+        <member name="F:DotCMIS.CMISWebServicesReference.enumUpdatability.oncreate">
+            <remarks/>
+        </member>
+        <member name="T:DotCMIS.CMISWebServicesReference.cmisPropertyUriDefinitionType">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisPropertyUriDefinitionType.defaultValue">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisPropertyUriDefinitionType.choice">
+            <remarks/>
+        </member>
+        <member name="T:DotCMIS.CMISWebServicesReference.cmisPropertyStringDefinitionType">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisPropertyStringDefinitionType.defaultValue">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisPropertyStringDefinitionType.maxLength">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisPropertyStringDefinitionType.choice">
+            <remarks/>
+        </member>
+        <member name="T:DotCMIS.CMISWebServicesReference.cmisPropertyHtmlDefinitionType">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisPropertyHtmlDefinitionType.defaultValue">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisPropertyHtmlDefinitionType.choice">
+            <remarks/>
+        </member>
+        <member name="T:DotCMIS.CMISWebServicesReference.cmisPropertyDecimalDefinitionType">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisPropertyDecimalDefinitionType.defaultValue">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisPropertyDecimalDefinitionType.maxValue">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisPropertyDecimalDefinitionType.maxValueSpecified">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisPropertyDecimalDefinitionType.minValue">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisPropertyDecimalDefinitionType.minValueSpecified">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisPropertyDecimalDefinitionType.precision">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisPropertyDecimalDefinitionType.precisionSpecified">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisPropertyDecimalDefinitionType.choice">
+            <remarks/>
+        </member>
+        <member name="T:DotCMIS.CMISWebServicesReference.enumDecimalPrecision">
+            <remarks/>
+        </member>
+        <member name="F:DotCMIS.CMISWebServicesReference.enumDecimalPrecision.Item32">
+            <remarks/>
+        </member>
+        <member name="F:DotCMIS.CMISWebServicesReference.enumDecimalPrecision.Item64">
+            <remarks/>
+        </member>
+        <member name="T:DotCMIS.CMISWebServicesReference.cmisPropertyDateTimeDefinitionType">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisPropertyDateTimeDefinitionType.defaultValue">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisPropertyDateTimeDefinitionType.resolution">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisPropertyDateTimeDefinitionType.resolutionSpecified">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisPropertyDateTimeDefinitionType.choice">
+            <remarks/>
+        </member>
+        <member name="T:DotCMIS.CMISWebServicesReference.enumDateTimeResolution">
+            <remarks/>
+        </member>
+        <member name="F:DotCMIS.CMISWebServicesReference.enumDateTimeResolution.year">
+            <remarks/>
+        </member>
+        <member name="F:DotCMIS.CMISWebServicesReference.enumDateTimeResolution.date">
+            <remarks/>
+        </member>
+        <member name="F:DotCMIS.CMISWebServicesReference.enumDateTimeResolution.time">
+            <remarks/>
+        </member>
+        <member name="T:DotCMIS.CMISWebServicesReference.cmisPropertyIntegerDefinitionType">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisPropertyIntegerDefinitionType.defaultValue">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisPropertyIntegerDefinitionType.maxValue">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisPropertyIntegerDefinitionType.minValue">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisPropertyIntegerDefinitionType.choice">
+            <remarks/>
+        </member>
+        <member name="T:DotCMIS.CMISWebServicesReference.cmisPropertyIdDefinitionType">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisPropertyIdDefinitionType.defaultValue">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisPropertyIdDefinitionType.choice">
+            <remarks/>
+        </member>
+        <member name="T:DotCMIS.CMISWebServicesReference.cmisTypePolicyDefinitionType">
+            <remarks/>
+        </member>
+        <member name="T:DotCMIS.CMISWebServicesReference.cmisTypeRelationshipDefinitionType">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisTypeRelationshipDefinitionType.allowedSourceTypes">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisTypeRelationshipDefinitionType.allowedTargetTypes">
+            <remarks/>
+        </member>
+        <member name="T:DotCMIS.CMISWebServicesReference.cmisTypeFolderDefinitionType">
+            <remarks/>
+        </member>
+        <member name="T:DotCMIS.CMISWebServicesReference.cmisTypeDocumentDefinitionType">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisTypeDocumentDefinitionType.versionable">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisTypeDocumentDefinitionType.contentStreamAllowed">
+            <remarks/>
+        </member>
+        <member name="T:DotCMIS.CMISWebServicesReference.enumContentStreamAllowed">
+            <remarks/>
+        </member>
+        <member name="F:DotCMIS.CMISWebServicesReference.enumContentStreamAllowed.notallowed">
+            <remarks/>
+        </member>
+        <member name="F:DotCMIS.CMISWebServicesReference.enumContentStreamAllowed.allowed">
+            <remarks/>
+        </member>
+        <member name="F:DotCMIS.CMISWebServicesReference.enumContentStreamAllowed.required">
+            <remarks/>
+        </member>
+        <member name="T:DotCMIS.CMISWebServicesReference.cmisTypeContainer">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisTypeContainer.type">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisTypeContainer.children">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisTypeContainer.Any">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisTypeContainer.AnyAttr">
+            <remarks/>
+        </member>
+        <member name="T:DotCMIS.CMISWebServicesReference.cmisACLType">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisACLType.ACL">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisACLType.exact">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisACLType.exactSpecified">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisACLType.Any">
+            <remarks/>
+        </member>
+        <member name="P:DotCMIS.CMISWebServicesReference.cmisACLType.AnyAttr">
+            <remarks/>
+        </member>
+        <member name="T:DotCMIS.Binding.Impl.CmisBinding">
+            <summary>
+            Binding layer implementation.
+            </summary>
+        </member>
+        <member name="T:DotCMIS.Binding.Impl.BindingSession">
+            <summary>
+            Session object implementation of the binding layer.
+            </summary>
+        </member>
+        <member name="T:DotCMIS.Binding.Impl.BindingRepositoryService">
+            <summary>
+            Repository service proxy that caches repository infos and type defintions.
+            </summary>
+        </member>
+        <member name="T:DotCMIS.Exceptions.CmisBaseException">
+            <summary>
+            Base exception for all CMIS exceptions.
+            </summary>
+        </member>
+    </members>
+</doc>
